@@ -1,0 +1,438 @@
+/**
+ * Neo-Kinetic Minimalism Design System
+ * Bold, dynamic, and unforgettable
+ */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Bold Color System */
+    --color-electric: #0066FF;
+    --color-electric-dark: #0052CC;
+    --color-electric-light: #E6F0FF;
+
+    --color-lime: #00FF88;
+    --color-lime-dark: #00CC6E;
+
+    --color-pink: #FF0055;
+    --color-pink-light: #FFE6EF;
+
+    --color-navy: #0A0E27;
+    --color-slate: #1E2341;
+    --color-gray: #8B92B0;
+    --color-light-gray: #E8EAF0;
+
+    --color-background: #FAFBFD;
+    --color-surface: #FFFFFF;
+
+    /* Typography */
+    --font-display: 'Syne', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+
+    /* Shadows with color */
+    --shadow-electric: 0 4px 24px rgba(0, 102, 255, 0.15);
+    --shadow-electric-lg: 0 8px 32px rgba(0, 102, 255, 0.2);
+    --shadow-float: 0 8px 32px rgba(10, 14, 39, 0.08);
+    --shadow-float-lg: 0 16px 48px rgba(10, 14, 39, 0.12);
+
+    /* Border Radius */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 24px;
+
+    /* Transitions */
+    --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+    --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  * {
+    @apply antialiased;
+  }
+
+  html {
+    font-family: var(--font-body);
+    background: #F3F4F6; /* Base Gray Color */
+  }
+
+  body {
+    color: var(--color-navy);
+    background: transparent;
+    min-height: 100vh;
+    position: relative;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    /* Dot Matrix Background */
+    background-image: 
+      radial-gradient(var(--color-gray) 1px, transparent 1px),
+      radial-gradient(var(--color-gray) 1px, transparent 1px);
+    background-size: 32px 32px;
+    background-position: 0 0, 16px 16px;
+    opacity: 0.6;
+    /* Fade out the dots towards the bottom */
+    mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.1) 100%);
+  }
+  
+  /* Technical Glass Panel */
+  .tech-panel {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 
+      0 1px 2px rgba(0,0,0,0.04), 
+      0 4px 16px rgba(0,0,0,0.02);
+  }
+
+  .tech-border {
+    border: 1px solid var(--color-light-gray);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+  }
+}
+
+@layer components {
+  /* Electric Gradient Button */
+  .btn-primary {
+    @apply relative px-6 py-3 font-semibold text-white overflow-hidden;
+    background: linear-gradient(135deg, var(--color-electric) 0%, var(--color-electric-dark) 100%);
+    border-radius: var(--radius-md);
+    font-family: var(--font-body);
+    font-size: 0.9375rem;
+    transition: all 0.3s var(--ease-spring);
+    box-shadow: var(--shadow-electric);
+  }
+
+  .btn-primary::before {
+    content: '';
+    @apply absolute inset-0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, transparent 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .btn-primary:hover:not(:disabled)::before {
+    opacity: 1;
+  }
+
+  .btn-primary:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-electric-lg);
+  }
+
+  .btn-primary:active:not(:disabled) {
+    transform: translateY(0);
+  }
+
+  .btn-primary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  /* Ghost Button */
+  .btn-secondary {
+    @apply relative px-6 py-3 font-semibold;
+    background: transparent;
+    color: var(--color-navy);
+    border: 2px solid var(--color-light-gray);
+    border-radius: var(--radius-md);
+    font-family: var(--font-body);
+    font-size: 0.9375rem;
+    transition: all 0.2s var(--ease-smooth);
+  }
+
+  .btn-secondary:hover:not(:disabled) {
+    border-color: var(--color-electric);
+    color: var(--color-electric);
+    transform: translateY(-1px);
+  }
+
+  .btn-secondary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  /* Danger Button */
+  .btn-danger {
+    @apply relative px-4 py-2 font-medium text-white;
+    background: var(--color-pink);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 16px rgba(255, 0, 85, 0.2);
+  }
+
+  .btn-danger:hover:not(:disabled) {
+    background: #CC0044;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(255, 0, 85, 0.3);
+  }
+
+  .btn-danger:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  /* Modern Input with Focus Ring */
+  .input-field {
+    @apply w-full px-4 py-3;
+    background: var(--color-surface);
+    border: 2px solid var(--color-light-gray);
+    border-radius: var(--radius-md);
+    color: var(--color-navy);
+    font-family: var(--font-body);
+    font-size: 0.9375rem;
+    transition: all 0.2s var(--ease-smooth);
+  }
+
+  .input-field:focus {
+    outline: none;
+    border-color: var(--color-electric);
+    box-shadow: 0 0 0 4px var(--color-electric-light);
+    transform: translateY(-1px);
+  }
+
+  .input-field:disabled {
+    background: var(--color-light-gray);
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  .input-field::placeholder {
+    color: var(--color-gray);
+  }
+
+  .form-label {
+    @apply block font-semibold mb-2;
+    color: var(--color-navy);
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    letter-spacing: -0.01em;
+  }
+
+  .error-message {
+    @apply text-sm mt-2 font-medium;
+    color: var(--color-pink);
+    font-family: var(--font-body);
+  }
+
+  /* Floating Card with Depth */
+  .card {
+    @apply relative p-6;
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    transition: all 0.3s var(--ease-spring);
+    box-shadow: var(--shadow-float);
+    border: 1px solid rgba(0, 0, 0, 0.04);
+  }
+
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-float-lg);
+  }
+
+  /* Kinetic Checkbox */
+  .custom-checkbox {
+    @apply relative cursor-pointer flex-shrink-0;
+    width: 24px;
+    height: 24px;
+    appearance: none;
+    background: var(--color-surface);
+    border: 2.5px solid var(--color-light-gray);
+    border-radius: 6px;
+    transition: all 0.3s var(--ease-spring);
+  }
+
+  .custom-checkbox:hover:not(:disabled) {
+    border-color: var(--color-electric);
+    transform: scale(1.1);
+  }
+
+  .custom-checkbox:checked {
+    background: linear-gradient(135deg, var(--color-electric) 0%, var(--color-lime) 100%);
+    border-color: var(--color-electric);
+    animation: checkboxPop 0.4s var(--ease-spring);
+  }
+
+  .custom-checkbox:checked::after {
+    content: '';
+    @apply absolute;
+    left: 7px;
+    top: 3px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2.5px 2.5px 0;
+    transform: rotate(45deg);
+    animation: checkmarkDraw 0.3s ease 0.1s both;
+  }
+
+  .custom-checkbox:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  /* Badge */
+  .badge {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold;
+    font-family: var(--font-mono);
+    letter-spacing: 0.02em;
+  }
+
+  .badge-electric {
+    background: var(--color-electric-light);
+    color: var(--color-electric-dark);
+  }
+
+  .badge-lime {
+    background: rgba(0, 255, 136, 0.15);
+    color: var(--color-lime-dark);
+  }
+}
+
+/* Kinetic Animations */
+@keyframes checkboxPop {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes checkmarkDraw {
+  0% {
+    height: 0;
+  }
+  100% {
+    height: 10px;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes floatIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+.animate-slideUp {
+  animation: slideUp 0.5s var(--ease-spring);
+}
+
+.animate-slideDown {
+  animation: slideDown 0.3s var(--ease-smooth);
+}
+
+.animate-scaleIn {
+  animation: scaleIn 0.4s var(--ease-spring);
+}
+
+.animate-floatIn {
+  animation: floatIn 0.6s var(--ease-spring);
+}
+
+/* Staggered animation delays */
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+
+/* Loading shimmer effect */
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--color-light-gray) 25%,
+    var(--color-surface) 50%,
+    var(--color-light-gray) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Smooth spring transitions */
+* {
+  transition-timing-function: var(--ease-smooth);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-light-gray);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-gray);
+}
