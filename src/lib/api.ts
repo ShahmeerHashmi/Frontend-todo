@@ -30,7 +30,7 @@ export async function apiRequest<T>(
   endpoint: string,
   options: RequestInit & { skipAuthRedirect?: boolean } = {}
 ): Promise<T> {
-  const url = `${API_BASE_URL}${endpoint}`;
+  const url = new URL(endpoint, API_BASE_URL).toString();
   const { skipAuthRedirect, ...fetchOptions } = options;
 
   const defaultOptions: RequestInit = {
